@@ -9,7 +9,7 @@ RAD2DEG = 180.0 / math.pi
 def circle():
     radius = 100.0
     velocity = 10.0
-    duration = 40.0
+    duration = 20.0
     dt = 0.1
 
     period = 2 * math.pi * radius / velocity
@@ -19,14 +19,16 @@ def circle():
     y = radius * np.cos(2 * math.pi * time / period)
 
     gps = np.stack([x, y], axis=1) # pd.DataFrame({'x': x, 'y': y})
+    #gps[:, :] += np.random.normal(0.0, 3.0, size=(length, 2))
+
     acc_x = np.ndarray((length,))
     acc_x[:] = 0.0
     acc_y = np.ndarray((length,))
-    acc_y[:] = velocity ** 2 / radius
+    acc_y[:] = -velocity ** 2 / radius
     acc = np.stack([acc_x, acc_y], axis=1)
 
     gyr_z = np.ndarray((length,))
-    w = velocity / radius
+    w = -velocity / radius
     gyr_z[:] = w
 
     print(w)
